@@ -20,10 +20,21 @@ body {
 }
 
 
+#root {
+  overflow-x: hidden;
+  position: relative;
+}
+
 
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  @media only screen and (max-width: $bp-large){
+    font-size: 50%;
+  }
+  @media only screen and (max-width: $bp-small){
+    font-size: 58%;
+  }
 }
 
 
@@ -44,7 +55,6 @@ body {
 
 
 .navbar {
-  width: 100%;
   display: flex;
   align-items: center;
   padding: 1.6rem 0;
@@ -52,15 +62,73 @@ body {
   position: relative;
   z-index: 20;
   background-color: var(--white);
+  @media only screen and (max-width: $bp-medium){
+    justify-content: space-around;
+    width: 100vw !important;
+  }
   &__menu {
+    @media only screen and (max-width: $bp-medium){
+      position: absolute;
+      top: 10rem;
+      left: 100%;
+      flex-direction: column;
+      background-color: var(--white);
+      width: 80%;
+      padding: 3rem;
+      gap: 4rem;
+      z-index: 10;
+    }
+    transition: all .2s ease-in-out;
     display: flex;
     align-items: center;
     gap: 2rem;
     list-style: none;
+    border-radius: 5px;
     & li {
+      position: relative;
       font-size: 1.4rem;
       color: var(--grayish-blue);
+      cursor: pointer;
+      @media only screen and (max-width: $bp-medium){
+        font-size: 2.4rem;
+        color: var(--dark-blue);
+      }
     }
+    & li::after {
+      content: '';
+      width: 0;
+      height: .5rem;
+      background-image: linear-gradient(to right, var(--lime-green), var(--grayish-blue));
+      position: absolute;
+      bottom: -3rem;
+      left: 0;
+      border-radius: 5px;
+      transition: all .2s ease-in-out;
+    }
+    & li:hover:after {
+      width: 100%;
+    }
+  }
+  &__hamburger {
+    &--menu {
+      display: none;
+      @media only screen and (max-width: $bp-medium){
+        display: block;
+      }
+    }
+  }
+  &__btn {
+    @media only screen and (max-width: $bp-medium){
+      display: none;
+    }
+  }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, hsla(233, 26%, 24%, 0.71), rgba(255, 255, 255, 0.23));
+    top: 6rem;
+    z-index: 5;
   }
 }
 
@@ -72,23 +140,34 @@ body {
   height: 75vh;
   background-color: var(--very-light-gray);
   display: grid;
-  // grid-template-columns: 1fr 1fr;
   grid-template-columns: 40% 60%;
   margin: 0 auto;
+  @media only screen and (max-width: $bp-medium){
+    grid-template-columns: 1fr;
+    grid-template-rows: .7fr .3fr;
+    height: auto;
+  }
   
   &__desc {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-bottom: 0;
     @media only screen and (max-width: $bp-largest){
       justify-content: center;
+    }
+    @media only screen and (max-width: $bp-medium){
+      justify-content: center;
+      padding-bottom: 10rem;
     }
     &--content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      
+      @media only screen and (max-width: $bp-largest){
+        align-items: center;
+      }
       gap: 3rem;
       width: 80%;
       & h1 {
@@ -112,7 +191,11 @@ body {
     background-repeat: no-repeat;
     background-position: left;
     position: relative;
-    
+    @media only screen and (max-width: $bp-medium){
+      grid-row: 1;
+      background-image: url('../images/bg-intro-mobile.svg');
+      background-size: cover;
+    }
     & img {
       position: absolute;
       z-index: 1;
@@ -120,6 +203,11 @@ body {
       max-width: 65rem;
       top: -10rem;
       right: -10rem;
+      @media only screen and (max-width: $bp-medium){
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 }
@@ -137,6 +225,9 @@ body {
     flex-direction: column;
     gap: 6rem;
     &--title {
+      @media only screen and (max-width: $bp-medium){
+        text-align: center;
+      }
       & h2 {
         font-size: 3rem;
         font-weight: 300;
@@ -154,21 +245,35 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
+      @media only screen and (max-width: $bp-medium){
+        flex-direction: column;
+        gap: 5rem;
+      }
       .feature {
         display: flex;
         flex-direction: column;
         gap: 3rem;
+        @media only screen and (max-width: $bp-medium){
+          align-items: center;
+        }
         &__content {
           &--title {
             font-size: 1.8rem;
             font-weight: 300;
             margin-bottom: 2rem;
             color: var(--dark-blue);
+            @media only screen and (max-width: $bp-medium){
+              text-align: center;
+            }
           }
           &--desc {
             font-size: 1.4rem;
             width: 80%;
             color: var(--grayish-blue);
+            @media only screen and (max-width: $bp-medium){
+              width: 100%;
+              text-align: center;
+            }
           }
         }
       }
@@ -193,14 +298,22 @@ body {
     &--list {
       display: grid;
       grid-template-columns: repeat( auto-fit, minmax(20rem, 1fr));
-      grid-template-rows: 40rem;
       grid-column-gap: 2rem;
+      grid-row-gap: 4rem;
       .article {
         width: 100%;
         background-color: var(--white);
         box-shadow: 0 .4rem 2rem rgba(0, 0, 0, 0.04);
         border-radius: 5px;
         overflow: hidden;
+        grid-template-rows: 1fr 1fr;
+        display: grid;
+        grid-row-gap: 1rem;
+
+        @media only screen and (max-width: $bp-small){
+          grid-template-rows: 1fr 20rem;
+        }
+
         &__img {
           height: 50%;
           & img {
@@ -220,7 +333,13 @@ body {
             font-size: 1.8rem;
             color: var(--dark-blue); 
             font-weight: 300;
+            cursor: pointer;
+            transition: all .2s ease-in-out;
           }
+          &--title:hover {
+            color: var(--lime-green); 
+          }
+
           &--text {
             font-size: 1.3rem;
             line-height: 1.4;
@@ -231,7 +350,6 @@ body {
       }
     }
   }
-
 }
 
 
@@ -241,6 +359,12 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 5rem 0;
+    @media only screen and (max-width: $bp-medium){
+      grid-template-columns: 1fr; 
+      grid-template-rows: .2fr auto .2fr;
+      grid-row-gap: 3rem;
+      justify-items: center;
+    }
     &--logo_social {
       display: flex;
       flex-direction: column;
@@ -248,20 +372,40 @@ body {
       &-media {
         display: flex;
         gap: 2rem;
+        cursor: pointer;
+        & svg {
+          fill: white;
+          transition: all .2s ease-in-out;
+        }
+        & svg:hover {
+          fill: var(--lime-green);
+        }
       }
     }
     &--options {
       display: flex;
       align-items: center;
       gap: 8rem;
+      @media only screen and (max-width: $bp-medium){
+        flex-direction: column;
+        gap: 2rem;
+      }
       & ul {
         list-style: none;
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        @media only screen and (max-width: $bp-medium){
+          align-items: center;
+        }
         & li {
           color: var(--white);
           font-size: 1.4rem;
+          cursor: pointer;
+        }
+        & li:hover {
+          color: var(--grayish-blue);
+          transition: all .2s ease-in-out;
         }
       }
     }
@@ -271,6 +415,9 @@ body {
       align-items: end;
       justify-content: center;
       gap: 2rem;
+      @media only screen and (max-width: $bp-small){
+        align-items: center;
+      }
       & p {
         color: var(--grayish-blue);
         font-size: 1.2rem;
@@ -293,6 +440,9 @@ body {
   display: none;
 }
 
+.menuOn {
+  left: 10% !important;
+}
 
 .btn {
   padding: 1.4rem 2.8rem;
@@ -300,4 +450,10 @@ body {
   border-radius: 15rem;
   background-image: linear-gradient(to right, var(--lime-green), var(--grayish-blue));
   color: var(--white);
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.btn:hover { 
+  background-image: linear-gradient(to right, hsl(136, 56%, 71%), var(--grayish-blue));
 }
