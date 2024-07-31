@@ -1,0 +1,79 @@
+.hero {
+  width: 100vw;
+  max-width: 140rem;
+  height: 75vh;
+  background-color: var(--very-light-gray);
+  display: grid;
+  grid-template-columns: 40% 60%;
+  margin: 0 auto;
+  padding-left: 4rem;
+  @media only screen and (max-width: $bp-medium){
+    grid-template-columns: 1fr;
+    grid-template-rows: .7fr .3fr;
+    height: auto;
+    padding-left: 0;
+  }
+  
+  &__desc {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 0;
+    @media only screen and (max-width: $bp-largest){
+      justify-content: center;
+    }
+    @media only screen and (max-width: $bp-medium){
+      justify-content: center;
+      padding-bottom: 10rem;
+    }
+    &--content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      @media only screen and (max-width: $bp-medium){
+        align-items: center;
+      }
+      gap: 3rem;
+      width: 80%;
+      & h1 {
+        font-size: 4.4rem;
+        font-weight: 300;
+        & span {
+          display: block;
+        }
+      }
+      & p {
+        font-size: 1.6rem;
+        color: var(--grayish-blue);
+        & span {
+          display: block;
+        }
+      }
+    }
+  }
+  &__img {
+    background-image: url('../images/bg-intro-desktop.svg');
+    background-repeat: no-repeat;
+    background-position: left;
+    position: relative;
+    @media only screen and (max-width: $bp-medium){
+      grid-row: 1;
+      background-image: url('../images/bg-intro-mobile.svg');
+      background-size: cover;
+    }
+    & img {
+      position: absolute;
+      z-index: 1;
+      width: 85%;
+      max-width: 65rem;
+      top: -10rem;
+      right: -10rem;
+      @media only screen and (max-width: $bp-medium){
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
