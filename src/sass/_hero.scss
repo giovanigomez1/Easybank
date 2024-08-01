@@ -57,11 +57,17 @@
     background-repeat: no-repeat;
     background-position: left;
     position: relative;
+    overflow: hidden;
     @media only screen and (max-width: $bp-medium){
       grid-row: 1;
       background-image: url('../images/bg-intro-mobile.svg');
-      background-size: cover;
+      background-size: cover;  
     }
+    @media only screen and (max-width: $bp-largest){
+      overflow: visible;
+    }
+    
+
     & img {
       position: absolute;
       z-index: 1;
